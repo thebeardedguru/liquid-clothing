@@ -25,11 +25,15 @@ class ShopPage extends React.Component {
     const { updateCollections } = this.props;
     const collectionRef = firestore.collection('collections');
 
-    this.unsubscribeFromSnapshot = collectionRef.onSnapshot(async snapshot => {
-      const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
-      updateCollections(collectionsMap);
-      this.setState({ loading: false });
-    });
+    fetch('https://firestore.googleapis.com/v1/projects/liquid-clothing-db/databases/(default)/documents/collections')
+    .then(res => res.json())
+    .then(collections => console.log(collections))
+    // collectionRef.get().then(snapshot => {
+    //   console.log('snapshot', snapshot)
+    //   const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
+    //   updateCollections(collectionsMap);
+    //   this.setState({ loading: false });
+    // });
   };
 
   render() {
